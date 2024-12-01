@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>agendar Lavagem</h1>
+    <form action="">
+        <label for="Nome">Nome</label>
+        <input type="text" name="nome" id="nome">
+        <label for="data">Lavanderia</label>
+        <select name="lavanderia" id="lavanderia">
+            <option disabled selected>Escolha a lavanderia</option>
+        </select>
+        <label for="data">data</label>
+        <input type="date" name="data" id="data">
+        <label for="Time">Horario</label>
+        <input type="time" name="Time" id="Time">
+        <button type="submit">Agendar</button>
+    </form>
+    <h2>Agendamentos</h2>
+    <ul id="agendamentos-lista"></ul>
+
+    <script src="agendamento.js"></script>
+</body>
+</html>
