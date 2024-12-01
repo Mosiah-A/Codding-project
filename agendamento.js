@@ -21,11 +21,13 @@ let lavanderia = {
         agendamentos: [],
     }
 };
+
 // Função para exibir agendamentos na tela
 function exibirAgendamentos() {
     let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
 
     // Limpa os agendamentos exibidos antes de adicionar novos
+    let agendamentosDiv = document.getElementById('agendamentos-lista');
     agendamentosDiv.innerHTML = "";
 
     agendamentos.forEach((agendamento, index) => {
@@ -42,26 +44,21 @@ function exibirAgendamentos() {
     });
 }
 
-
 // Verificar se já existem dados salvos no LocalStorage
-if (localStorage.getItem("lavanderia")) {
-    lavanderia = JSON.parse(localStorage.getItem("lavanderia"));
-} else {
+if (!localStorage.getItem("lavanderia")) {
     // Salvar o objeto inicial no LocalStorage
     localStorage.setItem("lavanderia", JSON.stringify(lavanderia));
 }
-
 
 // Selecionar o elemento <select> no DOM
 let lavanderiaSelect = document.getElementById("lavanderia");
 
 // Iterar sobre as lavanderias e criar opções
 Object.values(lavanderia).forEach(element => {
-    // Criar elemento <option>
     let option = document.createElement("option");
-    option.value = element.nome; // Valor do option
-    option.textContent = element.nome; // Texto exibido
-    lavanderiaSelect.appendChild(option); // Adicionar ao <select>
+    option.value = element.nome;
+    option.textContent = element.nome;
+    lavanderiaSelect.appendChild(option);
 });
 
 // Selecionar os elementos do formulário
@@ -70,10 +67,8 @@ let nomeInput = document.getElementById("nome");
 let dataInput = document.getElementById("data");
 let timeInput = document.getElementById("Time");
 
-
 // Função para mostrar a mensagem de sucesso
 function showMessage(message, duration = 30000) {
-    // Criar o elemento da mensagem
     let messageBox = document.createElement("div");
     messageBox.textContent = message;
     messageBox.style.position = "fixed";
@@ -86,10 +81,8 @@ function showMessage(message, duration = 30000) {
     messageBox.style.boxShadow = "0 4px 6px rgba(0, 0, 0, 0.1)";
     messageBox.style.zIndex = "1000";
 
-    // Adicionar a mensagem ao corpo da página
     document.body.appendChild(messageBox);
 
-    // Remover a mensagem após o tempo especificado
     setTimeout(() => {
         messageBox.remove();
     }, duration);
@@ -97,47 +90,30 @@ function showMessage(message, duration = 30000) {
 
 // Adicionar evento ao formulário
 form.addEventListener("submit", function(event) {
-    event.preventDefault(); // Evitar que o formulário seja enviado de forma tradicional
+    event.preventDefault(); 
 
-    // Capturar os dados do formulário
-    let nomeCliente = document.getElementById("nome").value;
-    let lavanderiaEscolhida = document.getElementById("lavanderia").value;
-    let dataEscolhida = document.getElementById("data").value;
-    let horarioEscolhido = document.getElementById("Time").value; // Aqui você captura o horário
+    let nomeCliente = nomeInput.value;
+    let lavanderiaEscolhida = lavanderiaSelect.value;
+    let dataEscolhida = dataInput.value;
+    let horarioEscolhido = timeInput.value;
 
     // Verificar se todos os campos foram preenchidos
     if (nomeCliente && lavanderiaEscolhida && dataEscolhida && horarioEscolhido) {
-        // Criar o agendamento
         let agendamento = {
-            cliente: nomeCliente,
+            nome: nomeCliente,
             lavanderia: lavanderiaEscolhida,
             data: dataEscolhida,
             horario: horarioEscolhido,
         };
 
-        // Encontrar a lavanderia escolhida no objeto 'lavanderia' e adicionar o agendamento
-        Object.values(lavanderia).forEach(lavanderiaObj => {
-            if (lavanderiaObj.nome === lavanderiaEscolhida) {
-                lavanderiaObj.agendamentos.push(agendamento);
-            }
-        });
+        // Recuperar agendamentos do LocalStorage
+        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        agendamentos.push(agendamento);
 
-        // Salvar os agendamentos no LocalStorage para persistência
-        localStorage.setItem("lavanderia", JSON.stringify(lavanderia));
+        // Salvar os agendamentos no LocalStorage
+        localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
 
-        // Exibir a mensagem de sucesso
-        let sucesso = document.createElement("div");
-        sucesso.textContent = "Agendamento realizado com sucesso!";
-        sucesso.style.backgroundColor = "green";
-        sucesso.style.color = "white";
-        sucesso.style.padding = "10px";
-        sucesso.style.marginTop = "20px";
-        document.body.appendChild(sucesso);
-
-        // Remover a mensagem de sucesso após 30 segundos
-        setTimeout(function() {
-            sucesso.remove();
-        }, 30000);
+        showMessage("Agendamento realizado com sucesso!");
 
         // Atualizar a lista de agendamentos
         exibirAgendamentos();
@@ -145,20 +121,16 @@ form.addEventListener("submit", function(event) {
         alert("Por favor, preencha todos os campos!");
     }
 });
-// Mostrar dados salvos no console (apenas para depuração)
-console.log("Dados de lavanderia salvos:", JSON.parse(localStorage.getItem("lavanderia")));
 
-// Mostrar os agendamentos salvos
-function exibirAgendamentos() {
-    let listaAgendamentos = document.getElementById("agendamentos-lista");
-    listaAgendamentos.innerHTML = ""; // Limpar lista
+// Função para remover agendamento
+function removerAgendamento(index) {
+    let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+    agendamentos.splice(index, 1);
+    localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
 
-    Object.values(lavanderia).forEach((lav) => {
-        lav.agendamentos.forEach((agendamento) => {
-            let item = document.createElement("li");
-            item.textContent = `${agendamento.cliente} - ${lav.nome} - ${agendamento.data} às ${agendamento.horario}`;
-            listaAgendamentos.appendChild(item);
-        });
-    });
+    // Atualizar a lista de agendamentos
+    exibirAgendamentos();
 }
-localStorage.removeItem('agendamentos')
+
+// Mostrar os agendamentos ao carregar a página
+document.addEventListener("DOMContentLoaded", exibirAgendamentos);
