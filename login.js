@@ -10,7 +10,7 @@ function login(event){
 
     if (dados) {
         localStorage.setItem("session",JSON.stringify(user));    
-        window.location.href = "/agendamento"
+        window.location.href = "https://mosiah-a.github.io/Codding-project/agendamento/"
     }
     else {
         console.log("User não encontrado")
