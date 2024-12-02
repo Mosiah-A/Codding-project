@@ -1,4 +1,9 @@
 // Objeto com as informações das lavanderias
+let session = localStorage.getItem('session')
+session = session.replace(/^["']|["']$/g, '');
+let nome = document.getElementById("nome")
+nome.innerText = `Nome: ${session}`
+
 let lavanderia = {
     lava_e_leva: {
         nome: "Lava e leva",
@@ -63,7 +68,7 @@ Object.values(lavanderia).forEach(element => {
 
 // Selecionar os elementos do formulário
 let form = document.querySelector("form");
-let nomeInput = document.getElementById("nome");
+let nomeInput = nome;
 let dataInput = document.getElementById("data");
 let timeInput = document.getElementById("Time");
 
@@ -92,7 +97,7 @@ function showMessage(message, duration = 3500) {
 form.addEventListener("submit", function(event) {
     event.preventDefault(); 
 
-    let nomeCliente = nomeInput.value;
+    let nomeCliente = session;
     let lavanderiaEscolhida = lavanderiaSelect.value;
     let dataEscolhida = dataInput.value;
     let horarioEscolhido = timeInput.value;
@@ -130,6 +135,11 @@ function removerAgendamento(index) {
 
     // Atualizar a lista de agendamentos
     exibirAgendamentos();
+}
+
+function sair() {
+    localStorage.removeItem("session")
+    window.location.href = "../index.html"
 }
 
 // Mostrar os agendamentos ao carregar a página
