@@ -10,7 +10,7 @@ function login(event){
 
     if (dados) {
         localStorage.setItem("session",JSON.stringify(user));    
-        window.location.href = "/agendamento/index.html"
+        window.location.href = "/agendamento"
     }
     else {
         console.log("User não encontrado")
