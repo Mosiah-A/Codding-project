@@ -68,7 +68,7 @@ let dataInput = document.getElementById("data");
 let timeInput = document.getElementById("Time");
 
 // Função para mostrar a mensagem de sucesso
-function showMessage(message, duration = 30000) {
+function showMessage(message, duration = 3500) {
     let messageBox = document.createElement("div");
     messageBox.textContent = message;
     messageBox.style.position = "fixed";
