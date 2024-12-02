@@ -1,5 +1,5 @@
 let cadastros = JSON.parse(localStorage.getItem("cadastros")) || [];
-
+let session = JSON.parse(localStorage.getItem("session")) || [];
 function login(event){
 
     event.preventDefault()
@@ -9,6 +9,7 @@ function login(event){
     const dados = cadastros.find(dados => dados.user == user && dados.password == password);
 
     if (dados) {
+        localStorage.setItem("session",JSON.stringify(user));    
         window.location.href = "../index.html"
     }
     else {
