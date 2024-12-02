@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+img{
+    margin-top: 20px;
+}
 body{
     display: flex;
     flex-direction: column;
@@ -20,13 +23,52 @@ h2{
 }
 p{
     margin: 20px;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 form{
+    margin: auto;
     display: flex;
     text-align: left;
     flex-direction: column;
+    width: 80vw;
     label{
         margin-top: 50px;
+        margin-left: 20px;
+        text-align: left;
     }
+    input{
+        padding: 20px;
+        margin-top: 10px;
+        height: 45px;
+        width: 333.811px;
+        height: 43.699px;
+        flex-shrink: 0;
+        border-radius: 20px;
+        opacity: 0.32;
+        background: linear-gradient(180deg, #951B7F 0%, rgba(146, 28, 131, 0.50) 100%);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+    }
+    button{
+        width: 333.811px;
+        margin-top: 50px;
+        height: 43.699px;
+        flex-shrink: 0;
+        border-radius: 20px;
+        background: #951B7F;
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        color: aliceblue;
+    }
+}
+#cadastrar{
+    margin-top: 50px;
+    width: 333.811px;
+    height: 43.699px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #951b7f5d;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 20px;
+}
+button:hover{
+    opacity: 20%;
 }
