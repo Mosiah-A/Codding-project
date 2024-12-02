@@ -1,6 +1,7 @@
-let cadastros = [{"user": "Mario", "password": "123"}]
+let cadastros = JSON.parse(localStorage.getItem("cadastros")) || [];
 
 function login(event){
+
     event.preventDefault()
     const user = document.getElementById("user").value;
     const password = document.getElementById("password").value;
@@ -12,7 +13,7 @@ function login(event){
     }
     else {
         console.log("User não encontrado")
-    }
+    };
 
 };
 
@@ -22,4 +23,7 @@ function cadastro(event) {
     const password = document.getElementById("password").value;
 
     cadastros.push({"user": user, "password": password});
+
+    localStorage.setItem("cadastros",JSON.stringify(cadastros));
+    console.log("Cadastro com sucesso");
 };
