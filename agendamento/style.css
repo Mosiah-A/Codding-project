@@ -4,7 +4,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+#sair{
+    width: 60px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding-bottom: 30px;
+}
 #head{
+    display: flex;
+    flex-direction: center;
+    margin:auto;
+    gap:40px;
+    align-items:center;
     height: 100px;
     margin-top: 0;
     padding-top: 25px;
@@ -15,6 +26,7 @@
     border-bottom-right-radius: 40px;
     h1{ 
         color: #f5f2f2;
+        margin-left: 40px;
     }
 }
 h2{
